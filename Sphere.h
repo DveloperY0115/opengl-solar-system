@@ -18,6 +18,10 @@ public:
 		// set radius
 		radius_ = radius;
 
+		// set resolution
+		sectorCnt_ = sectorCnt;
+		stackCnt_ = stackCnt;
+
 		// clear memory space
 		std::vector<GLfloat>().swap(vertices_);
 		std::vector<GLfloat>().swap(normals_);
@@ -32,14 +36,14 @@ public:
 		GLfloat stackStep = PI / stackCnt;
 		GLfloat sectorAngle, stackAngle;
 
-		for (int i = 0; i <= stackCnt; ++i) {
+		for (int i = 0; i <= stackCnt_; ++i) {
 			stackAngle = PI / 2 - i * stackStep;        // starting from pi/2 to -pi/2
 			xy = radius_ * cosf(stackAngle);             // r * cos(u)
 			z = radius_ * sinf(stackAngle);              // r * sin(u)
 
 			// add (sectorCount+1) vertices per stack
 			// the first and last vertices have same position and normal, but different tex coords
-			for (int j = 0; j <= sectorCnt; ++j)
+			for (int j = 0; j <= sectorCnt_; ++j)
 			{
 				sectorAngle = j * sectorStep;           // starting from 0 to 2pi
 
@@ -73,12 +77,12 @@ public:
  		k2--k2+1
 		*/
 		int k1, k2;
-		for (int i = 0; i < stackCnt; ++i)
+		for (int i = 0; i < stackCnt_; ++i)
 		{
-			k1 = i * (sectorCnt + 1);     // beginning of current stack
-			k2 = k1 + sectorCnt + 1;      // beginning of next stack
+			k1 = i * (sectorCnt_ + 1);     // beginning of current stack
+			k2 = k1 + sectorCnt_ + 1;      // beginning of next stack
 
-			for (int j = 0; j < sectorCnt; ++j, ++k1, ++k2)
+			for (int j = 0; j < sectorCnt_; ++j, ++k1, ++k2)
 			{
 				// 2 triangles per sector excluding first and last stacks
 				// k1 => k2 => k1+1
@@ -90,7 +94,7 @@ public:
 				}
 
 				// k1+1 => k2 => k2+1
-				if (i != (stackCnt - 1))
+				if (i != (stackCnt_ - 1))
 				{
 					indices_.push_back(k1 + 1);
 					indices_.push_back(k2);
@@ -143,6 +147,8 @@ public:
 private:
 	Coordinate origin_;
 	GLfloat radius_;
+	GLuint sectorCnt_;
+	GLuint stackCnt_;
 	std::vector<GLfloat> vertices_;
 	std::vector<GLfloat> normals_;
 	std::vector<GLfloat> texture_coords_;
