@@ -123,7 +123,7 @@ public:
 	// DrawObj
 	// Initiate draw call to OpenGL using current shader state
 	virtual void DrawObj(ShaderState& curSS) final {
-		gpu();    // transfer data to GPU
+		toGPU();    // transfer data to GPU
 
 		// bind VBOs
 		glBindBuffer(GL_ARRAY_BUFFER, posVBO);
@@ -175,7 +175,7 @@ public:
 private:
 	// gpu
 	// Transfer geometry data to GPU
-	void gpu() {
+	void toGPU() {
 
 		// copy vertex data to VBO
 		glGenBuffers(1, (GLuint*)&posVBO);
