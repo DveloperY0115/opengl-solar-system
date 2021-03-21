@@ -121,6 +121,34 @@ public:
 	// Initiate draw call to OpenGL using current shader state
 	virtual void DrawObj(ShaderState& curSS) final {
 
+	// setters
+	void setRadius(GLfloat radius) {
+		radius_ = radius;
+	}
+
+	void setSectorCnt(GLuint sectorCnt) {
+		sectorCnt_ = sectorCnt;
+	}
+
+	void setStackCnt(GLuint stackCnt) {
+		stackCnt_ = stackCnt;
+	}
+
+	// getters
+	void* getInterleavedVertices() {
+		return &interleaved_vertices_[0];
+	}
+
+	size_t getInterleavedVertices_Size() {
+		return interleaved_vertices_.size() * sizeof(interleaved_vertices_[0]);
+	}
+
+	void* getIndices() {
+		return &indices_[0];
+	}
+
+	size_t getIndices_Size() {
+		return indices_.size() * sizeof(indices_[0]);
 	}
 
 	void buildInterleavedVertices() {
