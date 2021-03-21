@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <tuple>
+
+#include "glm/glm.hpp"
 #include "ShaderState.h"
 
 /**
