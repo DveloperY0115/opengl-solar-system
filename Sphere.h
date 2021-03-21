@@ -9,6 +9,7 @@ class Sphere : public Geometry {
 
 public:
 	// Constructor
+	// Creates an instance of sphere class
 	Sphere(Coordinate origin, GLfloat radius, GLuint sectorCnt, GLuint stackCnt) {
 		
 		// set origin
@@ -108,12 +109,35 @@ public:
 			}
 		}
 
+		// generate interleaved expression of the instance
+		buildInterleavedVertices();
 	}
 
 	// DrawObj method
 	// Initiate draw call to OpenGL using current shader state
 	virtual void DrawObj(ShaderState& curSS) final {
 
+	}
+
+	void buildInterleavedVertices() {
+		std::vector<GLfloat>().swap(interleaved_vertices_);
+
+		std::size_t i, j;
+		std::size_t count = vertices_.size();
+		for (i = 0, j = 0; i < count; i += 3, j += 2)
+		{
+			interleaved_vertices_.push_back(vertices_[i]);
+			interleaved_vertices_.push_back(vertices_[i + 1]);
+			interleaved_vertices_.push_back(vertices_[i + 2]);
+
+			interleaved_vertices_.push_back(normals_[i]);
+			interleaved_vertices_.push_back(normals_[i + 1]);
+			interleaved_vertices_.push_back(normals_[i + 2]);
+
+			interleaved_vertices_.push_back(texture_coords_[j]);
+			interleaved_vertices_.push_back(texture_coords_[j + 1]);
+		}
+	}
 	}
 
 private:
@@ -124,4 +148,5 @@ private:
 	std::vector<GLfloat> texture_coords_;
 	std::vector<GLint> indices_;
 	std::vector<GLint> lineIndices_;
+	std::vector<GLfloat> interleaved_vertices_;
 };
