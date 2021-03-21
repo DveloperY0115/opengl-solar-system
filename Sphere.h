@@ -170,9 +170,34 @@ public:
 			interleaved_vertices_.push_back(texture_coords_[j + 1]);
 		}
 	}
+
+private:
+	// gpu
+	// Transfer geometry data to GPU
+	void gpu() {
+
+		// copy vertex data to VBO
+		glGenBuffers(1, (GLuint*)&posVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, posVBO);
+		glBufferData(GL_ARRAY_BUFFER,
+			getInterleavedVertices_Size(),
+			getInterleavedVertices(),
+			GL_STATIC_DRAW);
+
+		glGenBuffers(1, (GLuint*)&idxVBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxVBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+			getIndices_Size(),
+			getIndices(),
+			GL_STATIC_DRAW);
+
+		// copy attributes to VBO
+		// TODO: Implement this!
 	}
 
 private:
+	GlBufferObject posVBO, idxVBO, texVBO, colVBO;
+
 	Coordinate origin_;
 	GLfloat radius_;
 	GLuint sectorCnt_;
