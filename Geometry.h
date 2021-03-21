@@ -1,10 +1,28 @@
 #pragma once
 
+#include <vector>
+#include <tuple>
+#include "ShaderState.h"
+
 /**
-* Base class for geometries in the project
+* Base class for geometries in the project.
+* All geometry classes must be derived from this.
 */
 class Geometry {
 public:
 
+	// Constructor
+	// Creates an empty vector for storing vertices
+	Geometry() {
+		// Do nothing
+	}
+
+	// DrawObj method
+	// Initiate draw call to OpenGL using current shader state
+	virtual void DrawObj(ShaderState& curSS) {
+		// Do nothing
+	}
+
 private:
+	std::vector<GLfloat> vertices;
 };
