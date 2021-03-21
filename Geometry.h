@@ -1,10 +1,14 @@
 #pragma once
 
+#include <math.h>
 #include <vector>
 #include <tuple>
 
 #include "glm/glm.hpp"
 #include "ShaderState.h"
+#include "Constants.h"
+
+using Coordinate = glm::vec3;
 
 /**
 * Base class for geometries in the project.
