@@ -10,15 +10,18 @@ class Sphere : public Geometry {
 public:
 	// Constructor
 	// Creates an instance of sphere class
-	Sphere(Coordinate origin, GLfloat radius, GLuint sectorCnt, GLuint stackCnt) {
+	Sphere(Coordinate center, GLfloat radius, GLuint sectorCnt, GLuint stackCnt) {
 		
 		// set origin
-		origin_ = Coordinate(0.0, 0.0, 0.0);
+		center_ = Coordinate(0.0, 0.0, 0.0);
 
 		// set radius
+		assert(radius > 0);
 		radius_ = radius;
 
 		// set resolution
+		assert(sectorCnt > 0);
+		assert(stackCnt > 0);
 		sectorCnt_ = sectorCnt;
 		stackCnt_ = stackCnt;
 
@@ -77,12 +80,12 @@ public:
  		k2--k2+1
 		*/
 		int k1, k2;
-		for (int i = 0; i < stackCnt_; ++i)
+		for (unsigned int i = 0; i < stackCnt_; ++i)
 		{
 			k1 = i * (sectorCnt_ + 1);     // beginning of current stack
 			k2 = k1 + sectorCnt_ + 1;      // beginning of next stack
 
-			for (int j = 0; j < sectorCnt_; ++j, ++k1, ++k2)
+			for (unsigned int j = 0; j < sectorCnt_; ++j, ++k1, ++k2)
 			{
 				// 2 triangles per sector excluding first and last stacks
 				// k1 => k2 => k1+1
@@ -117,39 +120,37 @@ public:
 		buildInterleavedVertices();
 	}
 
-	// DrawObj method
+	// DrawObj
 	// Initiate draw call to OpenGL using current shader state
 	virtual void DrawObj(ShaderState& curSS) final {
+		gpu();    // transfer data to GPU
+
+		// bind VBOs
+		glBindBuffer(GL_ARRAY_BUFFER, posVBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxVBO);
+
+		// activate attribute arrays
+
+	}
 
 	// setters
-	void setRadius(GLfloat radius) {
-		radius_ = radius;
-	}
-
-	void setSectorCnt(GLuint sectorCnt) {
-		sectorCnt_ = sectorCnt;
-	}
-
-	void setStackCnt(GLuint stackCnt) {
-		stackCnt_ = stackCnt;
-	}
+	void setCenter(Coordinate center) { center_ = center;  }
+	void setRadius(GLfloat radius) { radius_ = radius; }
+	void setSectorCnt(GLuint sectorCnt) { sectorCnt_ = sectorCnt; }
+	void setStackCnt(GLuint stackCnt) { stackCnt_ = stackCnt; }
 
 	// getters
-	void* getInterleavedVertices() {
-		return &interleaved_vertices_[0];
-	}
-
-	size_t getInterleavedVertices_Size() {
-		return interleaved_vertices_.size() * sizeof(interleaved_vertices_[0]);
-	}
-
-	void* getIndices() {
-		return &indices_[0];
-	}
-
-	size_t getIndices_Size() {
-		return indices_.size() * sizeof(indices_[0]);
-	}
+	Coordinate getCenter() { return center_;  }
+	GLfloat getRadius() { return radius_; }
+	GLuint getSectorCnt() { return sectorCnt_; }
+	GLuint getStackCnt() { return stackCnt_; }
+	std::vector<GLfloat> getVertices() { return vertices_; }
+	std::vector<GLfloat> getNormals() { return normals_; }
+	std::vector<GLfloat> getTextureCoords() { return texture_coords_; }
+	size_t getInterleavedVertices_Size() { return interleaved_vertices_.size() * sizeof(interleaved_vertices_[0]); }
+	size_t getIndices_Size() { return indices_.size() * sizeof(indices_[0]); }
+	void* getInterleavedVertices() { return &interleaved_vertices_[0]; }
+	void* getIndices() { return &indices_[0]; }
 
 	void buildInterleavedVertices() {
 		std::vector<GLfloat>().swap(interleaved_vertices_);
@@ -198,7 +199,7 @@ private:
 private:
 	GlBufferObject posVBO, idxVBO, texVBO, colVBO;
 
-	Coordinate origin_;
+	Coordinate center_;
 	GLfloat radius_;
 	GLuint sectorCnt_;
 	GLuint stackCnt_;

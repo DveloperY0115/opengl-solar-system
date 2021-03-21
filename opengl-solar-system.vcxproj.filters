@@ -25,6 +25,12 @@
     <Filter Include="Header Files\Shader">
       <UniqueIdentifier>{721243f2-200c-47cf-967a-97af8e42cbad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{cc37cc10-44e7-439a-aeb9-7c0da97a3a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Geometry">
+      <UniqueIdentifier>{31db019c-b51a-4e50-a65a-8b8da6016a2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="ppm.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="test_sphere.cpp">
+      <Filter>Tests\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
