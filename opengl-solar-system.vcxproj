@@ -146,12 +146,12 @@
     <ClCompile Include="glsupport.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ppm.cpp" />
-    <ClCompile Include="Sphere.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="glsupport.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="ppm.h" />
     <ClInclude Include="ShaderState.h" />
     <ClInclude Include="test_sphere.cpp" />

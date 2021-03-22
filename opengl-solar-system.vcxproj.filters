@@ -42,16 +42,10 @@
     <ClCompile Include="ppm.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.h">
-      <Filter>Header Files\Geometry</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderState.h">
       <Filter>Header Files\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Geometry.h">
-      <Filter>Header Files\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="glsupport.h">
       <Filter>Header Files\Utils</Filter>
@@ -64,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="test_sphere.cpp">
       <Filter>Tests\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Header Files\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

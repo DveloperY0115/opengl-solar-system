@@ -17,8 +17,7 @@ using Coordinate = glm::vec3;
 class Geometry {
 public:
 
-	// Constructor
-	// Creates an empty vector for storing vertices
+	// Default Constructor
 	Geometry() {
 		// Do nothing
 	}
@@ -30,5 +29,4 @@ public:
 	}
 
 private:
-	std::vector<GLfloat> vertices;
 };

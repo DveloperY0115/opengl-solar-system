@@ -11,7 +11,7 @@ public:
 	// Constructor
 	// Creates an instance of sphere class
 	Sphere(Coordinate center, GLfloat radius, GLuint sectorCnt, GLuint stackCnt) {
-		
+
 		// set origin
 		center_ = Coordinate(0.0, 0.0, 0.0);
 

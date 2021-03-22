@@ -6,11 +6,11 @@
 #include <GL/glut.h>
 
 #include "ShaderState.h"
+#include "Sphere.h"
 
 // Utilities
 #include "glsupport.h"
 #include "ppm.h"
-
 
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -31,6 +31,10 @@ void initGLState() {
 	glClearColor(128. / 255, 200. / 255, 1, 0);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+}
+
+void initGeometry() {
+
 }
 
 int main(int argc, char** argv) {
