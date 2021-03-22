@@ -59,10 +59,10 @@
     <ClInclude Include="test_sphere.cpp">
       <Filter>Tests\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="Geometry.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry.h">
+    <ClInclude Include="Sphere.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
   </ItemGroup>

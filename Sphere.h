@@ -10,7 +10,7 @@ class Sphere : public Geometry {
 public:
 	// Constructor
 	// Creates an instance of sphere class
-	Sphere(Coordinate center, GLfloat radius, GLuint sectorCnt, GLuint stackCnt) {
+	Sphere(Coordinate center, GLfloat radius, GLuint sectorCnt, GLuint stackCnt, GLboolean smooth) {
 
 		// set origin
 		center_ = Coordinate(0.0, 0.0, 0.0);
@@ -25,6 +25,11 @@ public:
 		sectorCnt_ = sectorCnt;
 		stackCnt_ = stackCnt;
 
+
+	}
+
+public:
+	void buildVerticesSmooth() {
 		// clear memory space
 		std::vector<GLfloat>().swap(vertices_);
 		std::vector<GLfloat>().swap(normals_);
@@ -32,15 +37,15 @@ public:
 
 		GLfloat x, y, z, xy;    // vertex position
 		GLfloat nx, ny, nz;    // vertex normal
-		GLfloat lengthInv = 1.0f / radius;    // vertex normal norm
+		GLfloat lengthInv = 1.0f / radius_;    // vertex normal norm
 		GLfloat s, t;    // vertex texture coordinate
 
-		GLfloat sectorStep = 2 * PI / sectorCnt;
-		GLfloat stackStep = PI / stackCnt;
+		GLfloat sectorStep = 2 * PI / sectorCnt_;
+		GLfloat stackStep = PI / stackCnt_;
 		GLfloat sectorAngle, stackAngle;
 
 		for (int i = 0; i <= stackCnt_; ++i) {
-			stackAngle = PI / 2 - i * stackStep;        // starting from pi/2 to -pi/2
+			stackAngle = PI / 2 - i * stackStep;         // starting from pi/2 to -pi/2
 			xy = radius_ * cosf(stackAngle);             // r * cos(u)
 			z = radius_ * sinf(stackAngle);              // r * sin(u)
 
@@ -66,8 +71,8 @@ public:
 				normals_.push_back(nz);
 
 				// vertex tex coord (s, t) range between [0, 1]
-				s = (float)j / sectorCnt;
-				t = (float)i / stackCnt;
+				s = (float)j / sectorCnt_;
+				t = (float)i / stackCnt_;
 				texture_coords_.push_back(s);
 				texture_coords_.push_back(t);
 			}
@@ -77,7 +82,7 @@ public:
 		k1--k1+1
 		|  / |
 		| /  |
- 		k2--k2+1
+		k2--k2+1
 		*/
 		int k1, k2;
 		for (unsigned int i = 0; i < stackCnt_; ++i)
