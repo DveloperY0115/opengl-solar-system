@@ -11,6 +11,14 @@
 #include "glsupport.h"
 #include "ppm.h"
 
+
+void display() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glutSwapBuffers();
+	checkGlErrors();
+	return;
+}
+
 void initGLUT(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
@@ -25,15 +33,9 @@ void initGLState() {
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
 }
 
-
-void display() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	return;
-}
-
 int main(int argc, char** argv) {
 	initGLUT(argc, argv);
-	
+
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
 		printf("GLEW init failed: %s!n", glewGetErrorString(err));
